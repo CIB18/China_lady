@@ -78,10 +78,13 @@ export default function ArtPreview(props) {
         <div className="flex-none items-start">
           <div className="flex flex-row">
             <div className="rounded-full w-[1.5rem] text-center bg-[#325BC5] text-white">
-              <FontAwesomeIcon icon={faEthereum} className="" />
+              {/* <FontAwesomeIcon icon={faEthereum} className="" /> */}
+              <div className="top-2 py-1">
+                <img src={"/assets/png/bsc.svg"} alt="binance" width={80} />
+              </div>
             </div>
             <h1 className="flex-grow text-[#47DEF2] text-base ml-2">
-              {props.children.item.price}BNB
+              {props.children.item.price} BNB
             </h1>
           </div>
         </div>

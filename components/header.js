@@ -247,7 +247,7 @@ export default function Header(props) {
                                   {accountBalance} BNB
                                 </p>
                                 <p className="text-[#7D82B2] dark:text-gray-800 text-xs text-left">
-                                  {tokenBalance} Coodes Erc20
+                                  {tokenBalance} Chain Lady
                                 </p>
                               </div>
                             </div>
@@ -281,7 +281,7 @@ export default function Header(props) {
                                           {accountBalance} BNB
                                         </p>
                                         <p className="text-[#7D82B2] dark:text-gray-800 text-xs text-left">
-                                          {tokenBalance} Coodes Erc20
+                                          {tokenBalance} Chain Lady
                                         </p>
                                       </div>
                                       <div className="grid place-items-center w-[22px] h-[22px] bg-[#FFCC33] text-[#FAD804] text-xs font-bold rounded-sm">
@@ -414,7 +414,7 @@ export default function Header(props) {
                               {accountBalance} BNB
                             </p>
                             <p className="text-[#7D82B2] dark:text-gray-800 text-xs text-left">
-                              {tokenBalance} Coodes Erc20
+                              {tokenBalance} Chain Lady
                             </p>
                           </div>
                         </div>
@@ -432,7 +432,7 @@ export default function Header(props) {
                                     {accountBalance} BNB
                                   </p>
                                   <p className="text-[#7D82B2] dark:text-gray-800 text-xs text-left">
-                                    {tokenBalance} Coodes Erc20
+                                    {tokenBalance} Chain Lady
                                   </p>
                                 </div>
                                 <div className="grid place-items-center w-[22px] h-[22px] bg-[#FFCC33] text-[#FAD804] text-xs font-bold rounded-sm">

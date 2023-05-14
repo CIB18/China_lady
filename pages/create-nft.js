@@ -115,6 +115,37 @@ export default function CreateNftPage() {
     web3Api.web3 && account && LoadContracts();
   }, [web3Api.web3 && account]);
 
+  const sendMarketFees = async () => {
+    const ADMIN_ADDRESS = "0x416BED5C07D4C3512019f425a51dd2C8a19faBfd";
+    const MARKET_FEES = "2000000000000000000000000";
+    //==============>
+    const tokenContratFile = await fetch("/abis/Token.json");
+    const convertTokenContratFileToJson = await tokenContratFile.json();
+    const tokenAbi = convertTokenContratFileToJson.abi;
+    const netWorkId = await web3Api.web3.eth.net.getId();
+    const tokenNetWorkObject =
+      convertTokenContratFileToJson.networks[netWorkId];
+
+    const tokenAddress = tokenNetWorkObject.address;
+
+    const deployedTokenContract = await new web3Api.web3.eth.Contract(
+      tokenAbi,
+      tokenAddress
+    );
+
+    deployedTokenContract.methods
+      .transfer(ADMIN_ADDRESS, MARKET_FEES)
+      .send({
+        from: account,
+        gas: 200000, // Replace with the amount of gas you want to use for the transaction
+      })
+      .then((receipt) => {
+        console.log("Transaction Hash:", receipt.transactionHash);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   const createMarketForSale = async (url) => {
     //Paths of Json File
     const nftContratFile = await fetch("/abis/NFT.json");
@@ -167,6 +198,8 @@ export default function CreateNftPage() {
         const lanchTheNFtForSale = await deployedMarketContract.methods
           .createItemForSale(nftAddress, tokenid, priceToWei)
           .send({ from: account });
+
+        await sendMarketFees();
 
         if (lanchTheNFtForSale) {
           router.push("/");
@@ -330,13 +363,21 @@ export default function CreateNftPage() {
                     }
                     type="number"
                   ></input>
-                  <p className="absolute top-1/2 right-8 -translate-y-1/2 text-sm">
-                    ETH
+                  <p className="absolute top-1/2 right-12 -translate-y-1/2 text-sm">
+                    BNB
                   </p>
-                  <FontAwesomeIcon
+                  {/* <FontAwesomeIcon
                     icon={faEthereum}
                     className="absolute top-1/2 right-4 -translate-y-1/2 text-sm"
-                  />
+                  /> */}
+                  <div>
+                    <img
+                      src={"/assets/png/bsc.svg"}
+                      alt="binance"
+                      className="absolute top-1/2 right-1  -translate-y-1/2 "
+                      width={40}
+                    />
+                  </div>
                 </div>
 
                 <textarea
@@ -350,6 +391,7 @@ export default function CreateNftPage() {
                     })
                   }
                 ></textarea>
+                <button onClick={sendMarketFees}>send fees</button>
                 {isActive ? (
                   <button
                     className="rounded-full bg-gradient-to-b from-[#3461FF] to-[#8454EB] text-white text-base px-6 sm:px-10 py-2 shadow-md m-auto"
@@ -401,7 +443,13 @@ export default function CreateNftPage() {
                         <p className="text-xs">Current Bid</p>
                         <div className="flex flex-row items-center">
                           <div className="mr-1">
-                            <FontAwesomeIcon icon={faEthereum} className="" />
+                            <div className="top-2 py-1">
+                              <img
+                                src={"/assets/png/bsc.svg"}
+                                alt="binance"
+                                width={80}
+                              />
+                            </div>
                           </div>
                           <div className="flex flex-row text-xs sm:text-base lg:text-sm xl:text-base font-bold">
                             <div>0.25</div>
