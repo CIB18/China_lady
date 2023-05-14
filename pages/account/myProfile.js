@@ -207,7 +207,7 @@ export default function myProfilePage() {
     <>
       <Head>
         <title>Account Address</title>
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/favicon.jpg" />
       </Head>
 
       <Header current={-1}></Header>

@@ -244,7 +244,7 @@ export default function Header(props) {
                                   {account}
                                 </p>
                                 <p className="text-[#7D82B2] dark:text-gray-800 text-xs text-left">
-                                  {accountBalance} ETH
+                                  {accountBalance} BNB
                                 </p>
                                 <p className="text-[#7D82B2] dark:text-gray-800 text-xs text-left">
                                   {tokenBalance} Coodes Erc20
@@ -278,7 +278,7 @@ export default function Header(props) {
                                           Balances{" "}
                                         </p>
                                         <p className="text-[#7D82B2] text-xs text-left">
-                                          {accountBalance} ETH
+                                          {accountBalance} BNB
                                         </p>
                                         <p className="text-[#7D82B2] dark:text-gray-800 text-xs text-left">
                                           {tokenBalance} Coodes Erc20
@@ -411,7 +411,7 @@ export default function Header(props) {
                               {account}
                             </p>
                             <p className="text-[#7D82B2] text-xs text-left">
-                              {accountBalance} ETH
+                              {accountBalance} BNB
                             </p>
                             <p className="text-[#7D82B2] dark:text-gray-800 text-xs text-left">
                               {tokenBalance} Coodes Erc20
@@ -429,7 +429,7 @@ export default function Header(props) {
                                 </div>
                                 <div className="flex-1 flex flex-col">
                                   <p className="text-[#7D82B2] text-xs text-left">
-                                    {accountBalance} ETH
+                                    {accountBalance} BNB
                                   </p>
                                   <p className="text-[#7D82B2] dark:text-gray-800 text-xs text-left">
                                     {tokenBalance} Coodes Erc20

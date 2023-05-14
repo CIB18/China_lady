@@ -10,7 +10,6 @@ import "./NFT.sol";
 contract NFTMarketPlace is ReentrancyGuard {
 
     address payable owner;
-    uint256   marketFees = 0.1 ether;
 
       using Counters for Counters.Counter;
      Counters.Counter private itemId;
@@ -129,16 +128,13 @@ contract NFTMarketPlace is ReentrancyGuard {
         _;
     }
 
-      function gettheMarketFees()public view returns(uint256){
-        return marketFees;
-    }
+
 ///////////////////////////////////
      mapping(uint256=>NftMerketItem) private idForMarketItem;
 ///////////////////////////////////
     function createItemForSale(address nftContract,uint256 tokenId,uint256 price)public payable nonReentrant {
         require(price >0,"Price should be moreThan 1");
         require(tokenId >0,"token Id should be moreThan 1");
-        require(msg.value == marketFees,"The Market Fees is 0.10 Ether");
 
         require(nftContract != address(0),"address should not be equal 0x0");
         itemId.increment();
@@ -161,7 +157,6 @@ contract NFTMarketPlace is ReentrancyGuard {
         );
 
         IERC721(nftContract).transferFrom(msg.sender, address(this), tokenId);
-        payable(owner).transfer(marketFees);
         emit NftMarketItemCreated(nftContract, id, tokenId,  msg.sender, msg.sender,address(0), price, false,address(0),address(0),price,false,false);
 
     }
@@ -198,7 +193,6 @@ contract NFTMarketPlace is ReentrancyGuard {
     {
         uint256 tokenId = idForMarketItem[itemId].tokenId;
         require(newPrice > 0, "Price must be at least 1 wei");
-        require(msg.value == marketFees,"The Market Fees is 0.10 Ether");
 
 
         NFT tokenContract = NFT(nftContract);
@@ -222,7 +216,6 @@ contract NFTMarketPlace is ReentrancyGuard {
          idForMarketItem[itemId].oldPrice = oldPrice;
         
      itemsSold.decrement();
-      payable(owner).transfer(marketFees);
           emit ProductListed(itemId);
 
     }

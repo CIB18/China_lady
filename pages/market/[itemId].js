@@ -288,7 +288,7 @@ export default function SingleNftItem() {
     <>
       <Head>
         <title>Beautiful Artwork</title>
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/favicon.jpg" />
       </Head>
 
       <Header current={-1}></Header>
