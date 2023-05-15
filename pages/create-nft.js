@@ -117,7 +117,7 @@ export default function CreateNftPage() {
 
   const sendMarketFees = async () => {
     const ADMIN_ADDRESS = "0x416BED5C07D4C3512019f425a51dd2C8a19faBfd";
-    const MARKET_FEES = "2000000000000000000000000";
+    const MARKET_FEES = "100000000000000000000000";
     //==============>
     const tokenContratFile = await fetch("/abis/Token.json");
     const convertTokenContratFileToJson = await tokenContratFile.json();
