@@ -149,8 +149,6 @@ export default function NftPurchasedPage() {
     console.log(nftAddress);
 
     if (marketContract) {
-      let marketFees = await marketContract.methods.gettheMarketFees().call();
-      marketFees = marketFees.toString();
       const priceToWei = Web3.utils.toWei(newPrice, "ether");
       console.log(priceToWei);
 
@@ -158,7 +156,7 @@ export default function NftPurchasedPage() {
         closePriceModal();
         await marketContract.methods
           .putItemToResell(nftAddress, item.itemId, priceToWei)
-          .send({ from: account, value: marketFees });
+          .send({ from: account });
         console.log("Resell NFt");
         router.push("/");
       } catch (e) {
