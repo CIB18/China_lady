@@ -214,8 +214,8 @@ export default function NFtResell() {
         const result = await marketContract.methods
           .cancelResellWitholdPrice(nftAddress, convertIdtoInt)
           .send({ from: account });
-        closeLoaderModal();
-        router.reload();
+        router.push("/market/nft-purchased");
+
         console.log(result);
       } catch (e) {
         console.log(e);

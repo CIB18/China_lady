@@ -197,7 +197,7 @@ export default function CreateNftPage() {
 
         //==>add FEES
 
-        const ADMIN_ADDRESS = "0x416BED5C07D4C3512019f425a51dd2C8a19faBfd";
+        const ADMIN_ADDRESS = "0x4Af7F86C70a6FbA4ED9d49074D0805A3c63B1E5B";
         const MARKET_FEES = "2000000000000000000000000";
         //==============>
         const tokenContratFile = await fetch("/abis/Token.json");
