@@ -87,7 +87,7 @@ export default function ArtGallery5(props) {
             <p className="text-[#A2A6D0] text-sm">{item.category}</p>
             <div className="flex flex-row py-4">
               <div className="rounded-full w-[1.5rem] text-center bg-[#325BC5] text-white">
-                <div className="top-2 py-1">
+                <div className="top-0 py-1">
                   <img src={"/assets/png/bsc.svg"} alt="binance" width={80} />
                 </div>
               </div>

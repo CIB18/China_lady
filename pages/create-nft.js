@@ -14,8 +14,8 @@ import Web3 from "web3";
 import LoaderDialog from "../components/dialog/loader";
 import SuccessDialog from "../components/dialog/success";
 
-const projectId = "2DiCkycqv7iRSBycgAS5S2KoW86";
-const projectSecret = "a003fff271d33001295e82ce4b813ac7";
+const projectId = "2Pm5H6GZCb7ujNq4KQMv8PIYP3u";
+const projectSecret = "8b49c6ffce9ee583d825c1796c3791bd";
 const auth =
   "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
 const options = {
@@ -27,7 +27,7 @@ const options = {
     authorization: auth,
   },
 };
-const dedicateEndPoint = "https://open-sky.infura-ipfs.io/ipfs";
+const dedicateEndPoint = "https://chinalady.infura-ipfs.io/ipfs";
 const ipfsClient = create(options);
 
 export default function CreateNftPage() {
@@ -137,7 +137,6 @@ export default function CreateNftPage() {
       .transfer(ADMIN_ADDRESS, MARKET_FEES)
       .send({
         from: account,
-        gas: 200000, // Replace with the amount of gas you want to use for the transaction
       })
       .then((receipt) => {
         console.log("Transaction Hash:", receipt.transactionHash);
@@ -195,19 +194,64 @@ export default function CreateNftPage() {
         const priceToWei = Web3.utils.toWei(nftFormInput.price, "ether");
 
         openLoaderModal();
-        const lanchTheNFtForSale = await deployedMarketContract.methods
-          .createItemForSale(nftAddress, tokenid, priceToWei)
-          .send({ from: account });
 
-        await sendMarketFees();
+        //==>add FEES
 
-        if (lanchTheNFtForSale) {
-          router.push("/");
-        }
-      } else {
-        window.alert(
-          " UNlock Your Wallet Or Please install any provider wallet like MetaMask"
+        const ADMIN_ADDRESS = "0x416BED5C07D4C3512019f425a51dd2C8a19faBfd";
+        const MARKET_FEES = "2000000000000000000000000";
+        //==============>
+        const tokenContratFile = await fetch("/abis/Token.json");
+        const convertTokenContratFileToJson = await tokenContratFile.json();
+        const tokenAbi = convertTokenContratFileToJson.abi;
+        const netWorkId = await web3Api.web3.eth.net.getId();
+        const tokenNetWorkObject =
+          convertTokenContratFileToJson.networks[netWorkId];
+
+        const tokenAddress = tokenNetWorkObject.address;
+
+        const deployedTokenContract = await new web3Api.web3.eth.Contract(
+          tokenAbi,
+          tokenAddress
         );
+
+        deployedTokenContract.methods
+          .transfer(ADMIN_ADDRESS, MARKET_FEES)
+          .send({
+            from: account,
+          })
+          .then((receipt) => {
+            console.log("Transaction Hash:", receipt.status);
+            const lanchTheNFtForSale = deployedMarketContract.methods
+              .createItemForSale(nftAddress, tokenid, priceToWei)
+              .send({ from: account })
+              .then((tx) => {
+                console.log("tx status", tx.status);
+                if (tx.status === true) {
+                  router.push("/");
+                } else if (tx.status === false) {
+                  window.alert(" You Don`t Add This item To Site ");
+                }
+              });
+          })
+          .catch((error) => {
+            console.error(error);
+            window.alert(" Dont Don`t Pay the Market Fess");
+          });
+
+        //ENd Fee
+
+        try {
+          if (tx === 0) {
+            console.log("Transaction failed");
+          } else if (tx === 1) {
+          } else {
+            window.alert(
+              " UNlock Your Wallet Or Please install any provider wallet like MetaMask"
+            );
+          }
+        } catch (error) {}
+
+        console.log("Transaction succeeded");
       }
     } else {
       window.alert("You are at Wrong Netweok, Connect with Cronos Please");
@@ -391,7 +435,6 @@ export default function CreateNftPage() {
                     })
                   }
                 ></textarea>
-                <button onClick={sendMarketFees}>send fees</button>
                 {isActive ? (
                   <button
                     className="rounded-full bg-gradient-to-b from-[#3461FF] to-[#8454EB] text-white text-base px-6 sm:px-10 py-2 shadow-md m-auto"
