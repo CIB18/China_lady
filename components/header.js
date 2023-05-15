@@ -487,7 +487,7 @@ export default function Header(props) {
             closeSuccessModal={closeSuccessModal}
           >
             {{
-              msg: "PLease Connect MetaMask With Sepolia NetWork",
+              msg: "PLease Connect MetaMask With Binance NetWork",
               title: "Attention",
               buttonTitle: "Cancel",
             }}
