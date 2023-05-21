@@ -115,36 +115,6 @@ export default function CreateNftPage() {
     web3Api.web3 && account && LoadContracts();
   }, [web3Api.web3 && account]);
 
-  const sendMarketFees = async () => {
-    const ADMIN_ADDRESS = "0x416BED5C07D4C3512019f425a51dd2C8a19faBfd";
-    const MARKET_FEES = "100000000000000000000000";
-    //==============>
-    const tokenContratFile = await fetch("/abis/Token.json");
-    const convertTokenContratFileToJson = await tokenContratFile.json();
-    const tokenAbi = convertTokenContratFileToJson.abi;
-    const netWorkId = await web3Api.web3.eth.net.getId();
-    const tokenNetWorkObject =
-      convertTokenContratFileToJson.networks[netWorkId];
-
-    const tokenAddress = tokenNetWorkObject.address;
-
-    const deployedTokenContract = await new web3Api.web3.eth.Contract(
-      tokenAbi,
-      tokenAddress
-    );
-
-    deployedTokenContract.methods
-      .transfer(ADMIN_ADDRESS, MARKET_FEES)
-      .send({
-        from: account,
-      })
-      .then((receipt) => {
-        console.log("Transaction Hash:", receipt.transactionHash);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
   const createMarketForSale = async (url) => {
     //Paths of Json File
     const nftContratFile = await fetch("/abis/NFT.json");
@@ -238,8 +208,6 @@ export default function CreateNftPage() {
             window.alert(" Dont Don`t Pay the Market Fess");
           });
 
-        //ENd Fee
-
         try {
           if (tx === 0) {
             console.log("Transaction failed");
@@ -256,6 +224,7 @@ export default function CreateNftPage() {
     } else {
       window.alert("You are at Wrong Netweok, Connect with Cronos Please");
     }
+    //ENd Fee
   };
 
   let [priceOpen, setPriceOpen] = useState(false);
